@@ -10,7 +10,11 @@ let un = "Z465/";
 let t = Buffer.from(un, "ascii");
 console.log(t.toString('hex'));
 
-let s = "511B2033232841053022B0FE52ED0F7A165B52C7E75112F656FC4B";
+//let s = "ff9eb866157ed40d03e88cfc3b438ac3ca78970681a959e7c81912099e4d".split("").reverse().join("");
+let s = "f4035f95859e3ae7f";
+//let s = "678eb9fcde59092901ca79d5a816b0978a7cc0a3b43bccc8e83d00d7e561";
+//let s = "855fb50340fa233f0ed0e2b0f29e25c1a06a5679f206448267937fe7ae19";
+//let s = "511B2033232841053022B0FE52ED0F7A165B52C7E75112F656FC4B";
 let k = "20181002";
 let r = "";
 
@@ -26,10 +30,10 @@ let phrase = "";
 
 for (let i=0; i<r.length; i+=3) {
     let code = parseInt(r.substr(i,3), 16);
-    if (code != 0x310) {
+//    if (code != 0x310) {
         if (phrase.length) phrase += " ";
         phrase += mnem[code-1];
-    }
+//    }
 }
 
 console.log(phrase);
@@ -66,7 +70,7 @@ for (let close=0; close<0x100; close++) {
 
         for (let password of G.permutation(un.split(""))) {
 
-            console.log("Trying pw " + password.join(""));
+//            console.log("Trying pw " + password.join(""));
             let seed = bip39.mnemonicToSeed(phrase, password.join(""));
 
             var hdMaster = bip32.fromSeed(seed, bitcoin.networks.bitcoin);

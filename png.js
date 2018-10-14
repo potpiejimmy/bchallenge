@@ -31,9 +31,9 @@ fs.createReadStream('./challenge.png')
                 } else {
                     if (red != green) {
                         //console.log("[" + red + "," + green + "," + blue.toString(2) + "]");
-                        console.log("[" + x + "," + y + "]");
+                        //console.log("[" + x + "," + y + "]");
+                        resultGray += (red & 0x1) ^ parseInt(resultAlpha[count],2) ^ 1;
                         count++;
-                        resultGray += (((idx/4) & 0x1)) ^ 1;
                         //resultGray[x] ^= 1;
                         //resultGray.push(green & 0xee);
                     }
@@ -59,6 +59,12 @@ fs.createReadStream('./challenge.png')
 //        }
 //        console.log(Buffer.from(resultGray).toString());
 //        console.log(Buffer.from(resultGray).toString('hex'));
+
+        let tt = Buffer.from("secret + here you go", "base64");
+        //for (let i=0; i<tt.length; i++) tt[i] ^= 0xff;
+
+        console.log(tt.toString());
+        console.log(tt.toString("hex"));
     });
 
 
