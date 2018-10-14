@@ -60,9 +60,13 @@ fs.createReadStream('./challenge.png')
 //        console.log(Buffer.from(resultGray).toString());
 //        console.log(Buffer.from(resultGray).toString('hex'));
 
+        let ts = bitsToBuf(resultGray, 0).toString();
+        ts = ts.substr(-36,35);
+        console.log("'"+ts+"'");
+
         let tt = Buffer.from("secret + here you go", "base64");
         //for (let i=0; i<tt.length; i++) tt[i] ^= 0xff;
-
+        
         console.log(tt.toString());
         console.log(tt.toString("hex"));
     });
