@@ -11,11 +11,11 @@ let t = Buffer.from(un, "ascii");
 console.log(t.toString('hex'));
 
 //let s = "ff9eb866157ed40d03e88cfc3b438ac3ca78970681a959e7c81912099e4d".split("").reverse().join("");
-let s = "f4035f95859e3ae7f";
+let s = "ebe8869f50cbcfc36f31489b88ae612a695c9656045a8507aa99c6a3e3864f7b528e54b3be17de4a8afb31c47bbf1fd75591f5cfe83c2a666d649420aa6c26a6";
 //let s = "678eb9fcde59092901ca79d5a816b0978a7cc0a3b43bccc8e83d00d7e561";
 //let s = "855fb50340fa233f0ed0e2b0f29e25c1a06a5679f206448267937fe7ae19";
 //let s = "511B2033232841053022B0FE52ED0F7A165B52C7E75112F656FC4B";
-let k = "20181002";
+let k = "20181002".split("").reverse().join("");
 let r = "";
 
 for (let i=0; i<s.length; i++) {

@@ -4,6 +4,7 @@ let PNG = require('pngjs').PNG;
 let resultAlpha = "";
 let resultRed = "";
 let resultGray = "";
+let specialHash = Buffer.from("Z465/", "ascii");
 //let resultGray = [];
 let count = 0;
 
@@ -32,10 +33,10 @@ fs.createReadStream('./challenge.png')
                     if (red != green) {
                         //console.log("[" + red + "," + green + "," + blue.toString(2) + "]");
                         //console.log("[" + x + "," + y + "]");
-                        resultGray += (red & 0x1) ^ parseInt(resultAlpha[count],2) ^ 1;
+                        resultGray += (red & 0x1) ^ 1;
                         count++;
                         //resultGray[x] ^= 1;
-                        //resultGray.push(green & 0xee);
+                        //resultGray.push(red);
                     }
                 }
             }
@@ -49,26 +50,34 @@ fs.createReadStream('./challenge.png')
         //console.log(resultRed);
         console.log(bitsToBuf(resultRed).toString('hex'));
 
-        console.log("GRAY DATA:")
-//        resultGray = resultGray.join("");
+//        for (let i=0; i< 256; i++) {
+            console.log("GRAY DATA:")
+//            resultGray = resultGray.split("").reverse().join("");
+            console.log(resultGray);
+            resultGray = bitsToBuf(resultGray); // Buffer.from(resultGray);
+//            for (let j=0; j<resultGray.length; j++) resultGray[j] ^= specialHash[j%specialHash.length];
+            console.log(resultGray.toString("hex"));
+            console.log(resultGray.toString());
+//            fs.appendFileSync("out.txt", Buffer.from([...resultGray, 0x0a]));
+//        }
 //        console.log(count);
-        console.log(resultGray);
 //        for (let i=0; i< 8; i++) {
-            console.log(bitsToBuf(resultGray, 0).toString());
-            console.log(bitsToBuf(resultGray, 0).toString('hex'));
+//            console.log(bitsToBuf(resultGray, 0).toString());
+//            console.log(bitsToBuf(resultGray, 0).toString('hex'));
 //        }
 //        console.log(Buffer.from(resultGray).toString());
 //        console.log(Buffer.from(resultGray).toString('hex'));
 
-        let ts = bitsToBuf(resultGray, 0).toString();
-        ts = ts.substr(-36,35);
-        console.log("'"+ts+"'");
+//        resultGray = resultGray.substr(0,512);
+//        console.log(resultGray);
+//        let ts = bitsToBuf(resultGray, 0);
+//        console.log(ts.toString("hex"));
 
-        let tt = Buffer.from("secret + here you go", "base64");
+//        let tt = Buffer.from("secret + here you go", "base64");
         //for (let i=0; i<tt.length; i++) tt[i] ^= 0xff;
         
-        console.log(tt.toString());
-        console.log(tt.toString("hex"));
+//        console.log(tt.toString());
+//        console.log(tt.toString("hex"));
     });
 
 
