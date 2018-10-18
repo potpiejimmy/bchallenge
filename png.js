@@ -29,11 +29,24 @@ fs.createReadStream('./challenge.png')
                         resultAlpha += (alpha - 253) ^ 1;
                         resultRed += (red & 0x1) ^ (alpha - 253);
                     }
-                } else {
+                }
+            }
+        }
+        
+        for (var y = this.height - 1; y >= 0; y--) {
+            for (var x = 0; x < this.width; x++) {
+                let idx = (this.width * y + x) << 2;
+ 
+                let red   = this.data[idx];
+                let green = this.data[idx+1];
+                let blue  = this.data[idx+2];
+                let alpha = this.data[idx+3];
+
+                if (y != 310) {
                     if (red != green) {
                         //console.log("[" + red + "," + green + "," + blue.toString(2) + "]");
                         //console.log("[" + x + "," + y + "]");
-                        resultGray += (red & 0x1) ^ 1;
+                        resultGray += (red & 0x1) ^ parseInt(resultAlpha[y]) ^ (parseInt(resultRed[x]));
                         count++;
                         //resultGray[x] ^= 1;
                         //resultGray.push(red);
@@ -43,7 +56,7 @@ fs.createReadStream('./challenge.png')
         }
         
         console.log("ALPHA DATA:")
-        //console.log(resultAlpha);
+        console.log(resultAlpha);
         console.log(bitsToBuf(resultAlpha).toString());
 
         console.log("RED DATA:")
