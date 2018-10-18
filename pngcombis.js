@@ -4,6 +4,7 @@ let G = require('generatorics');
 
 let resultAlpha = "";
 let resultRed = "";
+let resultRedRaw = "";
 let resultGray = "";
 let resultGrayI = "";
 let specialHash = Buffer.from("Z465/", "ascii");
@@ -48,13 +49,25 @@ doIt((r, g, b, a, x, y, a310, r310) => {
     return (r&1) ^ parseInt(resultAlpha[x]) ^ parseInt(resultRed[y]);
 });
 doIt((r, g, b, a, x, y, a310, r310) => {
+    return (r&1) ^ parseInt(resultAlpha[x]) ^ parseInt(resultRedRaw[y]);
+});
+doIt((r, g, b, a, x, y, a310, r310) => {
     return (r&1) ^ parseInt(resultAlpha[y]) ^ parseInt(resultRed[x]);
+});
+doIt((r, g, b, a, x, y, a310, r310) => {
+    return (r&1) ^ parseInt(resultAlpha[y]) ^ parseInt(resultRedRaw[x]);
 });
 doIt((r, g, b, a, x, y, a310, r310) => {
     return parseInt(resultAlpha[x]) ^ parseInt(resultRed[y]);
 });
 doIt((r, g, b, a, x, y, a310, r310) => {
+    return parseInt(resultAlpha[x]) ^ parseInt(resultRedRaw[y]);
+});
+doIt((r, g, b, a, x, y, a310, r310) => {
     return parseInt(resultAlpha[y]) ^ parseInt(resultRed[x]);
+});
+doIt((r, g, b, a, x, y, a310, r310) => {
+    return parseInt(resultAlpha[y]) ^ parseInt(resultRedRaw[x]);
 });
 
 
@@ -69,6 +82,7 @@ fs.createReadStream('./challenge.png')
 
         resultAlpha = "";
         resultRed = "";
+        resultRedRaw = "";
         for (var y = 0; y < this.height; y++) {
             for (var x = 0; x < this.width; x++) {
                 let idx = (this.width * y + x) << 2;
@@ -81,7 +95,8 @@ fs.createReadStream('./challenge.png')
                 if (y == 310) {
                     if (alpha != 255) {
                         resultAlpha += alpha & 1;
-                        resultRed += (red & 1) ^ (alpha & 1);
+                        resultRed += (red & 1) ^ (alpha & 1) ^ 1;
+                        resultRedRaw += (red & 1);
                     }
                 }
             }
