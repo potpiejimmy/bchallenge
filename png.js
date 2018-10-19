@@ -75,8 +75,8 @@ fs.createReadStream('./challenge.png')
 //        }
 //        console.log(count);
 //        for (let i=0; i< 8; i++) {
-//            console.log(bitsToBuf(resultGray, 0).toString());
-//            console.log(bitsToBuf(resultGray, 0).toString('hex'));
+//            console.log(bitsToBuf(resultGray, i).toString());
+//            console.log(bitsToBuf(resultGray, i).toString('hex'));
 //        }
 //        console.log(Buffer.from(resultGray).toString());
 //        console.log(Buffer.from(resultGray).toString('hex'));
@@ -97,7 +97,7 @@ fs.createReadStream('./challenge.png')
 function bitsToBuf(bits, offset = 0) {
     bits = bits.substr(offset);
     let data = [];
-    while (bits.length) {
+    while (bits.length > 7) {
         data.push(parseInt(bits.substr(0,8), 2));
         bits = bits.substr(8);
     }
