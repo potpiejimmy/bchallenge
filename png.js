@@ -3,10 +3,14 @@ let PNG = require('pngjs').PNG;
 
 let resultAlpha = "";
 let resultRed = "";
-let resultGray = "";
+//let resultGray = "";
 let specialHash = Buffer.from("Z465/", "ascii");
-//let resultGray = [];
+let resultGray = [];
+let resultGrayBits = "";
 let count = 0;
+
+var pngdata = fs.readFileSync('out.png');
+var pngout = PNG.sync.read(pngdata);
 
 fs.createReadStream('./challenge.png')
      .pipe(new PNG({
@@ -33,7 +37,7 @@ fs.createReadStream('./challenge.png')
             }
         }
         
-        for (var y = this.height - 1; y >= 0; y--) {
+        for (var y = 0; y < this.height; y++) {
             for (var x = 0; x < this.width; x++) {
                 let idx = (this.width * y + x) << 2;
  
@@ -46,10 +50,23 @@ fs.createReadStream('./challenge.png')
                     if (red != green) {
                         //console.log("[" + red + "," + green + "," + blue.toString(2) + "]");
                         //console.log("[" + x + "," + y + "]");
-                        resultGray += (red & 0x1) ^ parseInt(resultAlpha[y]) ^ (parseInt(resultRed[x]));
-                        count++;
+                        //resultGray += (red & 0x1) ^ parseInt(resultAlpha[y]) ^ (parseInt(resultRed[x]));
+                        resultGrayBits += (red&1);
+                        //count++;
                         //resultGray[x] ^= 1;
-                        //resultGray.push(red);
+                        // if (red & 1) {
+                        //     resultGray.push(0xff);
+                        //     resultGray.push(0xff);
+                        //     resultGray.push(0xff);
+                        // } else {
+                        //     resultGray.push(0);
+                        //     resultGray.push(0);
+                        //     resultGray.push(0);
+                        // }
+                        resultGray.push(red);
+                        resultGray.push(green);
+                        resultGray.push(blue);
+                        resultGray.push(alpha);
                     }
                 }
             }
@@ -64,13 +81,18 @@ fs.createReadStream('./challenge.png')
         console.log(bitsToBuf(resultRed).toString('hex'));
 
 //        for (let i=0; i< 256; i++) {
-            console.log("GRAY DATA:")
+            console.log("GRAY DATA:");
+        pngout.data = resultGray;
+        pngout.width = 17;
+        pngout.height =128;
+        var buffer = PNG.sync.write(pngout);
+        fs.writeFileSync('out.png', buffer);
 //            resultGray = resultGray.split("").reverse().join("");
-            console.log(resultGray);
-            resultGray = bitsToBuf(resultGray); // Buffer.from(resultGray);
+            console.log(resultGrayBits);
+//            resultGray = bitsToBuf(resultGray); // Buffer.from(resultGray);
 //            for (let j=0; j<resultGray.length; j++) resultGray[j] ^= specialHash[j%specialHash.length];
-            console.log(resultGray.toString("hex"));
-            console.log(resultGray.toString());
+//            console.log(resultGray.toString("hex"));
+//            console.log(resultGray.toString());
 //            fs.appendFileSync("out.txt", Buffer.from([...resultGray, 0x0a]));
 //        }
 //        console.log(count);
