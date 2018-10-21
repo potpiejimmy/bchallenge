@@ -11,49 +11,69 @@ let data = "10000101000100001100000110100010111001001001110101101010000100101001
 let specialHash = Buffer.from("273e2b95648fd3cbad0d7fe3ed820e783c0b12fdbe29b57bfb2d1f243d92b1a5", "hex");
 
 let phrase = "cry buyer grain save vault sign lyrics rhythm music fury horror mansion debris slim immune lock actual tide gas vapor fringe pole flat glance";
+//let phrase = "cry buyer grain save vault sign lyrics rhythm music fury horror mansion";
 let rest = "30754FK69A";
 
 let pw = [
- ['LD','CE','2D','D89','1F'],
- ['LD','CE','2D','D89','F1'],
- ['LD','CE','2D','98D','1F'],
- ['LD','CE','2D','98D','F1'],
- ['LD','CE','D2','D89','1F'],
- ['LD','CE','D2','D89','F1'],
- ['LD','CE','D2','98D','1F'],
- ['LD','CE','D2','98D','F1'],
- ['LD','EC','2D','D89','1F'],
- ['LD','EC','2D','D89','F1'],
- ['LD','EC','2D','98D','1F'],
- ['LD','EC','2D','98D','F1'],
- ['LD','EC','D2','D89','1F'],
- ['LD','EC','D2','D89','F1'],
- ['LD','EC','D2','98D','1F'],
- ['LD','EC','D2','98D','F1'],
- ['DL','CE','2D','D89','1F'],
- ['DL','CE','2D','D89','F1'],
- ['DL','CE','2D','98D','1F'],
- ['DL','CE','2D','98D','F1'],
- ['DL','CE','D2','D89','1F'],
- ['DL','CE','D2','D89','F1'],
- ['DL','CE','D2','98D','1F'],
- ['DL','CE','D2','98D','F1'],
- ['DL','EC','2D','D89','1F'],
- ['DL','EC','2D','D89','F1'],
- ['DL','EC','2D','98D','1F'],
- ['DL','EC','2D','98D','F1'],
- ['DL','EC','D2','D89','1F'],
- ['DL','EC','D2','D89','F1'],
- ['DL','EC','D2','98D','1F'],
- ['DL','EC','D2','98D','F1'],
-]
+ ['LD','CE','2D89','1F'],
+ ['LD','CE','2D89','F1'],
+ ['LD','CE','98D2','1F'],
+ ['LD','CE','98D2','F1'],
+ ['LD','EC','2D89','1F'],
+ ['LD','EC','2D89','F1'],
+ ['LD','EC','98D2','1F'],
+ ['LD','EC','98D2','F1'],
+ ['DL','CE','2D89','1F'],
+ ['DL','CE','2D89','F1'],
+ ['DL','CE','98D2','1F'],
+ ['DL','CE','98D2','F1'],
+ ['DL','EC','2D89','1F'],
+ ['DL','EC','2D89','F1'],
+ ['DL','EC','98D2','1F'],
+ ['DL','EC','98D2','F1'],
+];
+
+// let pw = [
+//  ['LD','CE','2D','D89','1F'],
+//  ['LD','CE','2D','D89','F1'],
+//  ['LD','CE','2D','98D','1F'],
+//  ['LD','CE','2D','98D','F1'],
+//  ['LD','CE','D2','D89','1F'],
+//  ['LD','CE','D2','D89','F1'],
+//  ['LD','CE','D2','98D','1F'],
+//  ['LD','CE','D2','98D','F1'],
+//  ['LD','EC','2D','D89','1F'],
+//  ['LD','EC','2D','D89','F1'],
+//  ['LD','EC','2D','98D','1F'],
+//  ['LD','EC','2D','98D','F1'],
+//  ['LD','EC','D2','D89','1F'],
+//  ['LD','EC','D2','D89','F1'],
+//  ['LD','EC','D2','98D','1F'],
+//  ['LD','EC','D2','98D','F1'],
+//  ['DL','CE','2D','D89','1F'],
+//  ['DL','CE','2D','D89','F1'],
+//  ['DL','CE','2D','98D','1F'],
+//  ['DL','CE','2D','98D','F1'],
+//  ['DL','CE','D2','D89','1F'],
+//  ['DL','CE','D2','D89','F1'],
+//  ['DL','CE','D2','98D','1F'],
+//  ['DL','CE','D2','98D','F1'],
+//  ['DL','EC','2D','D89','1F'],
+//  ['DL','EC','2D','D89','F1'],
+//  ['DL','EC','2D','98D','1F'],
+//  ['DL','EC','2D','98D','F1'],
+//  ['DL','EC','D2','D89','1F'],
+//  ['DL','EC','D2','D89','F1'],
+//  ['DL','EC','D2','98D','1F'],
+//  ['DL','EC','D2','98D','F1'],
+// ]
 
 let count = 0;
 
-for (let r=0; r<rest.length; r++) {
+//for (let r=0; r<rest.length; r++) {
     for (let i=0; i<pw.length; i++) {
         var extended = pw[i].slice(0);
-        extended.push(rest[r]);
+        //extended.push(rest[r]);
         for (let password of G.permutation(extended)) {
             let seed = bip39.mnemonicToSeed(phrase, password.join(""));
             let hdMaster = bip32.fromSeed(seed, bitcoin.networks.bitcoin);
@@ -70,7 +90,7 @@ for (let r=0; r<rest.length; r++) {
             }
         }
     }
-}
+//}
 console.log(count);
 
 //     var seed = bitsToBuf(mdata.substr(0,512));
